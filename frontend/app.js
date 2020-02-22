@@ -5,7 +5,7 @@ import DeckGL from '@deck.gl/react';
 import {GeoJsonLayer, PolygonLayer} from '@deck.gl/layers';
 import {LightingEffect, AmbientLight, _SunLight as SunLight} from '@deck.gl/core';
 import {scaleThreshold} from 'd3-scale';
-
+import ControlPanel from './control-panel';
 // Set your mapbox token here
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2hyaXNjb2xlczAxIiwiYSI6ImNrNnhqaDF3dzBhNjMzZW8waHpnMzN5ZWsifQ.mLeEly0rwEBCNiffXh_0tg'; // eslint-disable-line
 
@@ -53,7 +53,8 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      hoveredObject: null
+      hoveredObject: null,
+      Month: "ANNUAL"
     };
     this._onHover = this._onHover.bind(this);
     this._renderTooltip = this._renderTooltip.bind(this);
@@ -61,6 +62,14 @@ export default class App extends Component {
     const lightingEffect = new LightingEffect({ambientLight, dirLight});
     lightingEffect.shadowColor = [0, 0, 0, 0.5];
     this._effects = [lightingEffect];
+    this.onChangeMonth = this.onChangeMonth.bind(this);
+
+  }
+  onChangeMonth(vMonth){
+    console.log(vMonth)
+    this.setState({ Month: vMonth});
+
+    
   }
 
   _onHover({x, y, object}) {
@@ -87,8 +96,8 @@ export default class App extends Component {
         filled: true,
         extruded: true,
         wireframe: true,
-        getElevation: f => Math.sqrt(f.properties.JULY) * 100000 ,
-        getFillColor: f => COLOR_SCALE(f.properties.JULY),
+        getElevation: f => Math.sqrt(f.properties[this.state.Month]) * 100000 ,
+        getFillColor: f => COLOR_SCALE(f.properties[this.state.Month]),
         getLineColor: [255, 255, 255],
         pickable: true,
         onHover: this._onHover
@@ -107,7 +116,7 @@ export default class App extends Component {
           <div>
             <div>{hoveredObject.properties.AREA_1} / size</div>
             <div>
-              {hoveredObject.properties.JULY} KWh
+              {hoveredObject.properties[this.state.Month]} KWh
             </div>
           </div>
          </div>
@@ -132,7 +141,9 @@ export default class App extends Component {
           preventStyleDiffing={true}
           mapboxApiAccessToken={MAPBOX_TOKEN}
         />
-
+      <ControlPanel 
+      onChangeMonth = {this.onChangeMonth}
+      Month= {this.state.Month}/>
         {this._renderTooltip}
       </DeckGL>
     );

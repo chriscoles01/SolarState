@@ -2,66 +2,47 @@ import React, {PureComponent} from 'react';
 
 export default class ControlPanel extends PureComponent {
   render() {
-    const {startTime, endTime, onChangeDay, allDay, onChangeAllDay, selectedTime} = this.props;
-    const day = 24 * 60 * 60 * 1000;
-    const days = Math.round((endTime - startTime) / day);
+    var {onChangeMonth, Month} = this.props;
+    this.setState({ Month: Month});
 
-    const _onChangeDay = evt => {
-      const daysToAdd = evt.target.value;
+    const _onChangeMonth = evt => {
+      const bMonth = evt.target.value;
       // add selected days to start time to calculate new time
-      const newTime = startTime + daysToAdd * day;
-      onChangeDay(newTime);
+      onChangeMonth(bMonth);
     };
 
-    const formatTime = time => {
-      const date = new Date(time);
-      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-    };
+    
 
     return (
       <div className="control-panel">
-        <h3>Heatmap</h3>
+        <h3>SolarState</h3>
         <p>
-          Map showing earthquakes
+          Map showing Solar Radiation, and potential roof coverage
           <br />
-          from <b>{formatTime(startTime)}</b> to <b>{formatTime(endTime)}</b>.
         </p>
         <hr />
-        <div className="input">
-          <label>All Days</label>
-          <input
-            type="checkbox"
-            name="allday"
-            checked={allDay}
-            onChange={evt => onChangeAllDay(evt.target.checked)}
-          />
-        </div>
-        <div className={`input ${allDay ? 'disabled' : ''}`}>
-          <label>Each Day: {formatTime(selectedTime)}</label>
-          <input
-            type="range"
-            disabled={allDay}
-            min={1}
-            max={days}
-            step={1}
-            onChange={_onChangeDay}
-          />
+     
+        <div>
+          <label>Month: {Month}</label>
+          <br/>
+          <select id="mySelect" onChange={_onChangeMonth} defaultValue={Month}>
+        <option>JANUARY</option>
+        <option>FEBRUARY</option>
+        <option>MARCH</option>
+        <option>APRIL</option>
+        <option>MAY</option>
+        <option>JUNE</option>
+        <option>JULY</option>
+        <option>AUGUST</option>
+        <option>SEPTEMBER</option>
+        <option>OCTOBER</option>
+        <option>NOVEMBER</option>
+        <option>DECEMBER</option>
+        <option>ANNUAL</option>
+      </select>
         </div>
         <hr />
-        <p>
-          Data source:{' '}
-          <a href="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson">
-            earthquakes.geojson
-          </a>
-        </p>
-        <div className="source-link">
-          <a
-            href="https://github.com/uber/react-map-gl/tree/5.2-release/examples/heatmap"
-            target="_new"
-          >
-            View Code ↗
-          </a>
-        </div>
+       
       </div>
     );
   }
