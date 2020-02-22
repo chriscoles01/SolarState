@@ -49,10 +49,27 @@ export default class App extends Component {
 
   componentDidMount() {
     var response = require('../../data/solardata.json'); //(with path)
+    console.log(response)
+        
     const features = response.features;
           const endTime = features[0].properties.time;
           const startTime = features[features.length - 1].properties.time;
 
+          
+          response.features.forEach(feature => {
+            if (feature.geometry.type === "Polygon") {
+              // Copy the polygon geometry and replace it with a
+              // point at the polygon's centroid.
+  
+              feature.geometry = {
+                coordinates: [feature.properties.X_COORD, feature.properties.Y_COORD],
+                type: "Point"
+              };
+            
+              
+          }
+        })
+          
           this.setState({
             data: response,
             earthquakes: response,
@@ -60,8 +77,11 @@ export default class App extends Component {
             startTime,
             selectedTime: endTime
           });
-    
-  }
+
+  
+
+}
+
 
   _onViewportChange = viewport => this.setState({viewport});
 
@@ -81,7 +101,8 @@ export default class App extends Component {
           : filterFeaturesByDay(this.state.earthquakes, this.state.selectedTime)
       });
     }
-  };
+  
+};
 
   render() {
     const {viewport, data, allDay, selectedTime, startTime, endTime} = this.state;
