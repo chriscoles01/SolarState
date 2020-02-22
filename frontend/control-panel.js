@@ -8,7 +8,7 @@ export default class ControlPanel extends PureComponent {
     const _onChangechoice = evt => {
       const bchoice = evt.target.value;
       // add selected days to start time to calculate new time
-      onChangechoice(bchoice);
+      onChangechoice(bchoice, this.refs["solar"].checked, this.refs["m2"].checked);
     };
 
     const _onChangeM2 = evt => {

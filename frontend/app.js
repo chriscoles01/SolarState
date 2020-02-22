@@ -56,7 +56,7 @@ export default class App extends Component {
       hoveredObject: null,
       choice: "ANNUAL",
       modifier: 1,
-       text:" Solar Potential",
+       text:" / M^2 Solar Potential",
       INITIAL_VIEW_STATE: {
         latitude: 41.650623,
         longitude: -102.693757,
@@ -80,8 +80,12 @@ export default class App extends Component {
     this.zipChange = this.zipChange.bind(this);
 
   }
-  onChangechoice(choice){
+  onChangechoice(choice, check1, check2){
+    if(check1 || check2){
+      console.log(check1)
+    }else{
     this.setState({ choice: choice});
+    }
 
     
   }
@@ -116,17 +120,17 @@ export default class App extends Component {
 
   onSelectM2(checked,month){
     if(checked){
-      this.setState({choice: "norm_pot_"+month, modifier: 1, text:"/ M^2"})
+      this.setState({choice: "norm_potential", modifier: 1, text:"/ M^2"})
     } else {
-      this.setState({choice: "ANNUAL", modifier: 1, text:" Solar Potential"})
+      this.setState({choice: "ANNUAL", modifier: 1, text:" / M^2 Solar Potential"})
     }
     
   }
   onSelectRooftop(checked,month){
     if(checked){
-      this.setState({choice: "abs_pot_"+month, modifier: 10000, text:" total possible on roof"})
+      this.setState({choice: "abs_potential", modifier: 50000, text:" total possible on roofing"})
     } else {
-      this.setState({choice: "ANNUAL", modifier: 1, text:" Solar Potential"})
+      this.setState({choice: "ANNUAL", modifier: 1, text:" / M^2 Solar Potential "})
     }
   }
   _onHover({x, y, object}) {
