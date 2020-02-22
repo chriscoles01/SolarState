@@ -1,8 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import SimpleMap from './components/SimpleMap.js'
 
 function App() {
+  const latitude = 34.350196
+  const longitude = -116.248543
+  const coords = {latitude, longitude}
   return (
     <div className="App">
       <header className="App-header">
@@ -19,6 +23,10 @@ function App() {
           Learntest
         </a>
       </header>
+      <body>
+        <SimpleMap location={coords} emergency_location = {coords}/> 
+
+      </body>
     </div>
   );
 }
