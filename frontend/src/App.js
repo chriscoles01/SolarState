@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import MapGL, {Source, Layer} from 'react-map-gl';
 import ControlPanel from './control-panel';
 import {json as requestJson} from 'd3-request';
-import {heatmapLayer} from './map-style';
+import {boxLayer} from './map-style';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2hyaXNjb2xlczAxIiwiYSI6ImNrNnhqaDF3dzBhNjMzZW8waHpnMzN5ZWsifQ.mLeEly0rwEBCNiffXh_0tg'; // Set your mapbox token here
 
@@ -69,6 +69,7 @@ export default class App extends Component {
               
           }
         })
+        
           
           this.setState({
             data: response,
@@ -119,7 +120,7 @@ export default class App extends Component {
         >
           {data && (
             <Source type="geojson" data={data}>
-              <Layer {...heatmapLayer} />
+              <Layer {... boxLayer} />
             </Source>
           )}
         </MapGL>

@@ -22,7 +22,7 @@ export default class ControlPanel extends PureComponent {
       <div className="control-panel">
         <h3>Heatmap</h3>
         <p>
-          Map showing earthquakes
+          Map showing solar
           <br />
           from <b>{formatTime(startTime)}</b> to <b>{formatTime(endTime)}</b>.
         </p>
