@@ -9,22 +9,22 @@ import ControlPanel from './control-panel';
 // Set your mapbox token here
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2hyaXNjb2xlczAxIiwiYSI6ImNrNnhqaDF3dzBhNjMzZW8waHpnMzN5ZWsifQ.mLeEly0rwEBCNiffXh_0tg'; // eslint-disable-line
 
-export const COLOR_SCALE = scaleThreshold()
-  .domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-  .range([
-    [65, 182, 196],
-    [127, 205, 187],
-    [199, 233, 180],
-    [237, 248, 177],
-    // zero
-    [255, 255, 204],
-    [255, 237, 160],
-    [254, 217, 118],
-    [254, 178, 76],
-    [253, 141, 60],
-    [252, 78, 42],
+// export const COLOR_SCALE = scaleThreshold()
+//   .domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+//   .range([
+//     [65, 182, 196],
+//     [127, 205, 187],
+//     [199, 233, 180],
+//     [237, 248, 177],
+//     // zero
+//     [255, 255, 204],
+//     [255, 237, 160],
+//     [254, 217, 118],
+//     [254, 178, 76],
+//     [253, 141, 60],
+//     [252, 78, 42],
     
-  ]);
+//   ]);
 
 const INITIAL_VIEW_STATE = {
   latitude: 41.650623,
@@ -76,8 +76,33 @@ export default class App extends Component {
   _onHover({x, y, object}) {
     this.setState({x, y, hoveredObject: object});
   }
-
+  onStyleLoad = (map, e) => {
+    this.setState( {map} );
+  }
+  componentWillUpdate(nextProps, nextState) {
+    const { map, Month } = nextState;
+    if (map) {
+      map.getSource('geojson')(Month);
+    }
+  }
+  
   _renderLayers(month) {
+    const COLOR_SCALE = scaleThreshold()
+  .domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+  .range([
+    [65, 182, 196],
+    [127, 205, 187],
+    [199, 233, 180],
+    [237, 248, 177],
+    // zero
+    [255, 255, 204],
+    [255, 237, 160],
+    [254, 217, 118],
+    [254, 178, 76],
+    [253, 141, 60],
+    [252, 78, 42],
+    
+  ]);
     const data = require('../data/solardata.json');
     console.log(month)
     return [
@@ -110,6 +135,7 @@ export default class App extends Component {
 
 return(
   <DeckGL
+    onStyleLoad={this.onStyleLoad}
         layers={this._renderLayers(state.Month)}
         // effects={this._effects}
         initialViewState={INITIAL_VIEW_STATE}
