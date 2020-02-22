@@ -13,7 +13,7 @@ export default class ControlPanel extends PureComponent {
 
     const _onChangeM2 = evt => {
       var checked = evt.target.checked
-      onSelectM2(checked)
+      onSelectM2(checked, this.refs["mySelect"].value)
       if(checked){
       this.refs["solar"].checked = !checked
       }
@@ -21,7 +21,7 @@ export default class ControlPanel extends PureComponent {
     
     const _onChangeRoof = evt => {
       var checked = evt.target.checked
-      onSelectRooftop(checked)
+      onSelectRooftop(checked, this.refs["mySelect"].value)
       if(checked){
 
       this.refs["m2"].checked = !checked
@@ -48,7 +48,7 @@ export default class ControlPanel extends PureComponent {
         <div>
           <label>choice: {choice}</label>
           <br/>
-          <select id="mySelect" onChange={_onChangechoice} defaultValue={choice}>
+          <select ref="mySelect" onChange={_onChangechoice} defaultValue={choice}>
         <option>JANUARY</option>
         <option>FEBRUARY</option>
         <option>MARCH</option>

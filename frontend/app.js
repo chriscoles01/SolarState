@@ -114,17 +114,17 @@ export default class App extends Component {
       );
   }
 
-  onSelectM2(checked){
+  onSelectM2(checked,month){
     if(checked){
-      this.setState({choice: "norm_potential", modifier: 1, text:"/ M^2"})
+      this.setState({choice: "norm_pot_"+month, modifier: 1, text:"/ M^2"})
     } else {
       this.setState({choice: "ANNUAL", modifier: 1, text:" Solar Potential"})
     }
     
   }
-  onSelectRooftop(checked){
+  onSelectRooftop(checked,month){
     if(checked){
-      this.setState({choice: "abs_potential", modifier: 10000, text:" total possible on roof"})
+      this.setState({choice: "abs_pot_"+month, modifier: 10000, text:" total possible on roof"})
     } else {
       this.setState({choice: "ANNUAL", modifier: 1, text:" Solar Potential"})
     }
