@@ -116,7 +116,7 @@ export default class App extends Component {
 
   onSelectM2(checked){
     if(checked){
-      this.setState({choice: "norm_potential", modifier: 100000, text:"/ M^2"})
+      this.setState({choice: "norm_potential", modifier: 1, text:"/ M^2"})
     } else {
       this.setState({choice: "ANNUAL", modifier: 1, text:" Solar Potential"})
     }
@@ -124,7 +124,7 @@ export default class App extends Component {
   }
   onSelectRooftop(checked){
     if(checked){
-      this.setState({choice: "abs_potential", modifier: 1, text:" total possible on roof"})
+      this.setState({choice: "abs_potential", modifier: 10000, text:" total possible on roof"})
     } else {
       this.setState({choice: "ANNUAL", modifier: 1, text:" Solar Potential"})
     }
@@ -207,7 +207,7 @@ export default class App extends Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
         />
       <ControlPanel 
-      onChangechoice = {this.onChangechoice}
+       onChangechoice = {this.onChangechoice}
       choice= {this.state.choice}
       onSelectM2={this.onSelectM2}
       onSelectRooftop={this.onSelectRooftop}

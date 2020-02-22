@@ -2,31 +2,30 @@ import React, {PureComponent} from 'react';
 
 export default class ControlPanel extends PureComponent {
   render() {
-    var {onChangeMonth, Month, onSelectM2, onSelectRooftop, zipChange} = this.props;
-    this.setState({ Month: Month, checkm2:false, checkroof:false});
+    var {onChangechoice, choice, onSelectM2, onSelectRooftop, zipChange} = this.props;
+    this.setState({ choice: choice, checkm2:false, checkroof:false});
 
-    const _onChangeMonth = evt => {
-      const bMonth = evt.target.value;
+    const _onChangechoice = evt => {
+      const bchoice = evt.target.value;
       // add selected days to start time to calculate new time
-      onChangeMonth(bMonth);
+      onChangechoice(bchoice);
     };
 
     const _onChangeM2 = evt => {
       var checked = evt.target.checked
       onSelectM2(checked)
-      // if(checked){
-      // this.setState({checkroof:true})
-      // }else{
-      //   this.setState({checkroof:true})
-
-      // }
-
+      if(checked){
+      this.refs["solar"].checked = !checked
+      }
     }
     
     const _onChangeRoof = evt => {
       var checked = evt.target.checked
       onSelectRooftop(checked)
-      
+      if(checked){
+
+      this.refs["m2"].checked = !checked
+      }
     }
     const _enterZip = evt => {
       var zip = evt.target.value
@@ -47,9 +46,9 @@ export default class ControlPanel extends PureComponent {
         <hr />
      
         <div>
-          <label>Month: {Month}</label>
+          <label>choice: {choice}</label>
           <br/>
-          <select id="mySelect" onChange={_onChangeMonth} defaultValue={Month}>
+          <select id="mySelect" onChange={_onChangechoice} defaultValue={choice}>
         <option>JANUARY</option>
         <option>FEBRUARY</option>
         <option>MARCH</option>
@@ -65,14 +64,14 @@ export default class ControlPanel extends PureComponent {
         <option>ANNUAL</option>
       </select>
       <br/>
-      <input type="checkbox" id="m2" name="m2" value="KWh per m2" onChange={_onChangeM2} />
+      <input type="checkbox" ref="m2" name="m2" value="KWh per m2" onChange={_onChangeM2} />
       See Rooftop Potential Kwh per m2
       <br/>
-      <input type="checkbox" id="solar" name="solar" value="See Rooftop Potential" onChange={_onChangeRoof} />
+      <input type="checkbox" ref="solar" name="solar" value="See Rooftop Potential" onChange={_onChangeRoof} />
       See Rooftop Potential Kwh Total
       <br/>
       Zip Code:  
-      <input type="number" id="zip" name="zip" onChange={_enterZip}/>
+      <input type="number" ref="zip" name="zip" onChange={_enterZip}/>
       <br/>
       Clear zip to move map
         </div>
