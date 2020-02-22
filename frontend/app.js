@@ -31,7 +31,7 @@ const INITIAL_VIEW_STATE = {
   longitude: -102.693757,
   zoom: 3,
   maxZoom: 16,
-  pitch: 45,
+  pitch: 10,
   bearing: 0
 };
 
@@ -58,6 +58,7 @@ export default class App extends Component {
     };
     this._onHover = this._onHover.bind(this);
     this._renderTooltip = this._renderTooltip.bind(this);
+    this.renderLayers = this.renderLayers.bind(this);
 
     const lightingEffect = new LightingEffect({ambientLight, dirLight});
     lightingEffect.shadowColor = [0, 0, 0, 0.5];
@@ -76,9 +77,9 @@ export default class App extends Component {
     this.setState({x, y, hoveredObject: object});
   }
 
-  _renderLayers() {
+  _renderLayers(month) {
     const data = require('../data/solardata.json');
-
+    console.log(month)
     return [
       // only needed when using shadows - a plane for shadows to drop on
       new PolygonLayer({
@@ -96,41 +97,20 @@ export default class App extends Component {
         filled: true,
         extruded: true,
         wireframe: true,
-        getElevation: f => Math.sqrt(f.properties[this.state.Month]) * 100000 ,
-        getFillColor: f => COLOR_SCALE(f.properties[this.state.Month]),
+        // getElevation: f => Math.sqrt(f.properties[this.state.Month]) * 100000 ,
+        getFillColor: f => COLOR_SCALE(f.properties[month]),
         getLineColor: [255, 255, 255],
         pickable: true,
         onHover: this._onHover
       })
     ];
   }
-
-  _renderTooltip() {
-    const {x, y, hoveredObject} = this.state;
-    return (
-      hoveredObject && (
-        <div className="tooltip" style={{top: y, left: x}}>
-          <div>
-            <b>Average Solar Radiation</b>
-          </div>
-          <div>
-            <div>{hoveredObject.properties.AREA_1} / size</div>
-            <div>
-              {hoveredObject.properties[this.state.Month]} KWh
-            </div>
-          </div>
-         </div>
-     
-      )
-    );
-  }
-
-  render() {
+  renderLayers(state){
     const {mapStyle = 'mapbox://styles/mapbox/light-v9'} = this.props;
 
-    return (
-      <DeckGL
-        layers={this._renderLayers()}
+return(
+  <DeckGL
+        layers={this._renderLayers(state.Month)}
         // effects={this._effects}
         initialViewState={INITIAL_VIEW_STATE}
         controller={true}
@@ -143,9 +123,41 @@ export default class App extends Component {
         />
       <ControlPanel 
       onChangeMonth = {this.onChangeMonth}
-      Month= {this.state.Month}/>
+      Month= {state.Month}/>
         {this._renderTooltip}
       </DeckGL>
+)
+  }
+  componentWillUpdate(nextProps, nextState) {
+    return (
+        this.render()
+    )
+  }
+  _renderTooltip() {
+    const {x, y, hoveredObject} = this.state;
+    return (
+      hoveredObject && (
+        <div className="tooltip" style={{top: y, left: x}}>
+          <div>
+            <b>Average Solar Radiation</b>
+          </div>
+          <div>
+            <div>{hoveredObject.properties.AREA_1} / size</div>
+            <div>
+              {hoveredObject.properties[this.state.Month]} KWh
+{              this.state.Month
+}            </div>
+          </div>
+         </div>
+     
+      )
+    );
+  }
+
+  render() {
+
+    return (
+      this.renderLayers(this.state)
     );
   }
 }
