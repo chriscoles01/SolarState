@@ -9,10 +9,6 @@ import {scaleThreshold} from 'd3-scale';
 // Set your mapbox token here
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2hyaXNjb2xlczAxIiwiYSI6ImNrNnhqaDF3dzBhNjMzZW8waHpnMzN5ZWsifQ.mLeEly0rwEBCNiffXh_0tg'; // eslint-disable-line
 
-// Source data GeoJSON
-const DATA_URL =
-  'https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/geojson/vancouver-blocks.json'; // eslint-disable-line
-
 export const COLOR_SCALE = scaleThreshold()
   .domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
   .range([
@@ -126,7 +122,7 @@ export default class App extends Component {
     return (
       <DeckGL
         layers={this._renderLayers()}
-        effects={this._effects}
+        // effects={this._effects}
         initialViewState={INITIAL_VIEW_STATE}
         controller={true}
       >
