@@ -1,20 +1,13 @@
-// NOTE: To use this example standalone (e.g. outside of repo)
+// NOTE: To use this example standalone (e.g. outside of deck.gl repo)
 // delete the local development overrides at the bottom of this file
 
-// avoid destructuring for older Node version support
-const resolve = require('path').resolve;
 const webpack = require('webpack');
 
-const BABEL_CONFIG = {
-  presets: ['@babel/env', '@babel/react'],
-  plugins: ['@babel/proposal-class-properties']
-};
-
-const config = {
+const CONFIG = {
   mode: 'development',
 
   entry: {
-    app: resolve('./src/app.js')
+    app: './app.js'
   },
 
   output: {
@@ -24,16 +17,14 @@ const config = {
   module: {
     rules: [
       {
-        // Compile ES2015 using babel
+        // Transpile ES6 to ES5 with babel
+        // Remove if your app does not use JSX or you don't need to support old browsers
         test: /\.js$/,
-        include: [resolve('.')],
+        loader: 'babel-loader',
         exclude: [/node_modules/],
-        use: [
-          {
-            loader: 'babel-loader',
-            options: BABEL_CONFIG
-          }
-        ]
+        options: {
+          presets: ['@babel/preset-react']
+        }
       }
     ]
   },
@@ -42,6 +33,5 @@ const config = {
   plugins: [new webpack.EnvironmentPlugin(['MapboxAccessToken'])]
 };
 
-// Enables bundling against src in this repo rather than the installed version
-module.exports = env =>
-  env && env.local ? require('../webpack.config.local')(config)(env) : config;
+// This line enables bundling against src in this repo rather than installed module
+module.exports = env => (env ? require('../../webpack.config.local')(CONFIG)(env) : CONFIG);

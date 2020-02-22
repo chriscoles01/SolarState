@@ -1,15 +1,19 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset='UTF-8' />
-    <title>react-map-gl Example</title>
-    <link rel="stylesheet" type="text/css" href="app.css" />
-  </head>
-  <body>
-    <div id="map"></div>
-    <script src='app.js'></script>
-  </body>
-  <script type="text/javascript">
-    App.renderToDom(document.getElementById('map'));
-  </script>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>deck.gl Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {margin: 0; font-family: sans-serif; width: 100vw; height: 100vh; overflow: hidden;}
+    .tooltip {pointer-events: none; position: absolute; z-index: 9; font-size: 12px; padding: 8px; background: #000; color: #fff; min-width: 160px; max-height: 240px; overflow-y: hidden;}
+  </style>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript">
+  App.renderToDOM(document.getElementById('app'));
+</script>
 </html>
