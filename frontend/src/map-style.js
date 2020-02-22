@@ -5,10 +5,10 @@ export const heatmapLayer = {
   type: 'heatmap',
   paint: {
     // Increase the heatmap weight based on frequency and property magnitude
-    'heatmap-weight': ['interpolate', ['linear'], ['get', 'dni'], 0, 0, 6, 1],
+    'heatmap-weight': ['interpolate', ['linear'], ['get', 'JULY'], 0, 0, 6, 1],
     // Increase the heatmap color weight weight by zoom level
     // heatmap-intensity is a multiplier on top of heatmap-weight
-    'heatmap-intensity': ['interpolate', ['linear'], ['dni'], 0, 1, MAX_ZOOM_LEVEL, 3],
+    'heatmap-intensity': ['interpolate', ['linear'], ['JULY'], 0, 1, MAX_ZOOM_LEVEL, 3],
     // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
     // Begin color ramp at 0-stop with a 0-transparancy color
     // to create a blur-like effect.
