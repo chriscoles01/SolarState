@@ -49,19 +49,13 @@ export default class App extends Component {
 
   componentDidMount() {
     var response = require('../../data/solardata.json'); //(with path)
-    
+    console.log(response)
         
     const features = response.features;
           const endTime = features[0].properties.time;
           const startTime = features[features.length - 1].properties.time;
 
-          this.setState({
-            data: response,
-            earthquakes: response,
-            endTime,
-            startTime,
-            selectedTime: endTime
-          });
+          
           response.features.forEach(feature => {
             if (feature.geometry.type === "Polygon") {
               // Copy the polygon geometry and replace it with a
@@ -71,11 +65,20 @@ export default class App extends Component {
                 coordinates: [feature.properties.X_COORD, feature.properties.Y_COORD],
                 type: "Point"
               };
+            
+              
           }
-    
-  });
-  var jsonContent = JSON.stringify(response);
-  console.log(jsonContent);
+        })
+          
+          this.setState({
+            data: response,
+            earthquakes: response,
+            endTime,
+            startTime,
+            selectedTime: endTime
+          });
+
+  
 
 }
 
