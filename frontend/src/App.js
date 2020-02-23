@@ -47,7 +47,7 @@ const dirLight = new SunLight({
   _shadow: true
 });
 
-const data = require('../backend/result.json');
+const data = require('./result.json');
 
 
 export default class App extends Component {
@@ -216,7 +216,7 @@ export default class App extends Component {
     );
   }
 }
-
+// export default App;
 export function renderToDOM(container) {
   render(<App />, container);
 }
