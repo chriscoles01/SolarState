@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/SolarState/static/css/main.e1e122d4.chunk.css",
+    "main.js": "/SolarState/static/js/main.34ed059c.chunk.js",
+    "main.js.map": "/SolarState/static/js/main.34ed059c.chunk.js.map",
+    "runtime-main.js": "/SolarState/static/js/runtime-main.6a1517ff.js",
+    "runtime-main.js.map": "/SolarState/static/js/runtime-main.6a1517ff.js.map",
+    "static/js/2.3fdffb2f.chunk.js": "/SolarState/static/js/2.3fdffb2f.chunk.js",
+    "static/js/2.3fdffb2f.chunk.js.map": "/SolarState/static/js/2.3fdffb2f.chunk.js.map",
+    "index.html": "/SolarState/index.html",
+    "precache-manifest.40cf04a3d282f48b23c7ba358a6052d3.js": "/SolarState/precache-manifest.40cf04a3d282f48b23c7ba358a6052d3.js",
+    "service-worker.js": "/SolarState/service-worker.js",
+    "static/css/main.e1e122d4.chunk.css.map": "/SolarState/static/css/main.e1e122d4.chunk.css.map",
+    "static/js/2.3fdffb2f.chunk.js.LICENSE.txt": "/SolarState/static/js/2.3fdffb2f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6a1517ff.js",
+    "static/js/2.3fdffb2f.chunk.js",
+    "static/css/main.e1e122d4.chunk.css",
+    "static/js/main.34ed059c.chunk.js"
+  ]
+}
