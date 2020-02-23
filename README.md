@@ -25,5 +25,7 @@ You will also see any lint errors in the console.
 ## Project created by:
 
 Adelaida Creosteanu (adelaidaCreosteanu) - Data/Backend
+
 Christopher Coles (chriscoles01) - Frontend
+
 Maria Aufschlager (MariaAufschlager007) - Data/Backend
