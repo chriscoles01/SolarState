@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c9ccc2ceb67cbd3bc39348b711d6686b",
+    "revision": "07ffd359faab76e6b0a8861d9be0278c",
     "url": "/SolarState/index.html"
   },
   {
-    "revision": "5d89a00fcfcdb1e59659",
-    "url": "/SolarState/static/css/main.e1e122d4.chunk.css"
+    "revision": "da9e83a940c3c1f49735",
+    "url": "/SolarState/static/css/main.20d1d68a.chunk.css"
   },
   {
     "revision": "d672f0e75d9c0804bce8",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SolarState/static/js/2.3fdffb2f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "5d89a00fcfcdb1e59659",
+    "revision": "da9e83a940c3c1f49735",
     "url": "/SolarState/static/js/main.34ed059c.chunk.js"
   },
   {
