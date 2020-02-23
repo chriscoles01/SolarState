@@ -6,8 +6,9 @@ import {GeoJsonLayer, PolygonLayer} from '@deck.gl/layers';
 import {LightingEffect, AmbientLight, _SunLight as SunLight} from '@deck.gl/core';
 import {scaleThreshold} from 'd3-scale';
 import ControlPanel from './control-panel';
+
 // Set your mapbox token here
-const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2hyaXNjb2xlczAxIiwiYSI6ImNrNnhqaDF3dzBhNjMzZW8waHpnMzN5ZWsifQ.mLeEly0rwEBCNiffXh_0tg'; // eslint-disable-line
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2hyaXNjb2xlczAxIiwiYSI6ImNrNnhqaDF3dzBhNjMzZW8waHpnMzN5ZWsifQ.mLeEly0rwEBCNiffXh_0tg'; 
 
 export const COLOR_SCALE = scaleThreshold()
   .domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -16,7 +17,6 @@ export const COLOR_SCALE = scaleThreshold()
     [127, 205, 187],
     [199, 233, 180],
     [237, 248, 177],
-    // zero
     [255, 255, 204],
     [255, 237, 160],
     [254, 217, 118],
@@ -47,6 +47,8 @@ const dirLight = new SunLight({
   _shadow: true
 });
 
+const data = require('../backend/result.json');
+
 
 export default class App extends Component {
   constructor(props) {
@@ -57,14 +59,7 @@ export default class App extends Component {
       choice: "ANNUAL",
       modifier: 1,
        text:" / M^2 Solar Potential",
-      INITIAL_VIEW_STATE: {
-        latitude: 41.650623,
-        longitude: -102.693757,
-        zoom: 3,
-        maxZoom: 16,
-        pitch: 10,
-        bearing: 0
-      }
+      INITIAL_VIEW_STATE: INITIAL_VIEW_STATE
       
     };
     this._onHover = this._onHover.bind(this);
@@ -73,14 +68,15 @@ export default class App extends Component {
     const lightingEffect = new LightingEffect({ambientLight, dirLight});
     lightingEffect.shadowColor = [0, 0, 0, 0.5];
     this._effects = [lightingEffect];
-    this.onChangechoice = this.onChangechoice.bind(this);
+    this.onChangeChoice = this.onChangeChoice.bind(this);
     this.onSelectM2 = this.onSelectM2.bind(this);
 
     this.onSelectRooftop = this.onSelectRooftop.bind(this);
     this.zipChange = this.zipChange.bind(this);
 
   }
-  onChangechoice(choice, check1, check2){
+
+  onChangeChoice(choice, check1, check2){
     if(check1 || check2){
       console.log(check1)
     }else{
@@ -88,44 +84,43 @@ export default class App extends Component {
     }
 
     
+
   }
+
+  // This changes the focus of the map to a specific zip code area
   zipChange(zip){
-    const data = require('../backend/result.json');
-    console.log(zip)
    data.features.forEach((feature) => {
      if(zip == "None"){
       this.setState({
-        
         viewState: undefined
      })}
       if(feature.properties.zip == zip){
-        var coordx = feature.properties.X_COORD
-        var coordy = feature.properties.Y_COORD
+        var coordX = feature.properties.X_COORD
+        var coordY = feature.properties.Y_COORD
+
         this.setState({
-        
           viewState: {
-            latitude: coordy,
-            longitude: coordx,
+            latitude: coordY,
+            longitude: coordX,
             zoom: 10,
             maxZoom: 16,
             pitch: 0,
             bearing: 0
           }})
-          console.log(zip)
-
       }
-    }
-      );
+    });
   }
 
+  // this is for changing the view for rooftop per m^2 potential
   onSelectM2(checked,month){
     if(checked){
       this.setState({choice: "norm_potential", modifier: 1, text:"/ M^2"})
     } else {
       this.setState({choice: "ANNUAL", modifier: 1, text:" / M^2 Solar Potential"})
     }
-    
   }
+  
+  // this is for changing the view for rooftop total potential
   onSelectRooftop(checked,month){
     if(checked){
       this.setState({choice: "abs_potential", modifier: 50000, text:" total possible on roofing"})
@@ -133,22 +128,22 @@ export default class App extends Component {
       this.setState({choice: "ANNUAL", modifier: 1, text:" / M^2 Solar Potential "})
     }
   }
+
   _onHover({x, y, object}) {
     this.setState({x, y, hoveredObject: object});
   }
 
   _renderLayers(choice) {
-    const data = require('../backend/result.json');
-    // this.setState({data:data})
+    
     return [
       // only needed when using shadows - a plane for shadows to drop on
-      new PolygonLayer({
-        id: 'ground',
-        data: data,
-        stroked: false,
-        getPolygon: f => f,
-        getFillColor: [0, 0, 0, 0]
-      }),
+      // new PolygonLayer({
+      //   id: 'ground',
+      //   data: data,
+      //   stroked: false,
+      //   getPolygon: f => f,
+      //   getFillColor: [0, 0, 0, 0]
+      // }),
       new GeoJsonLayer({
         id: 'geojson',
         data,
@@ -211,7 +206,7 @@ export default class App extends Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
         />
       <ControlPanel 
-       onChangechoice = {this.onChangechoice}
+       onChangeChoice = {this.onChangeChoice}
       choice= {this.state.choice}
       onSelectM2={this.onSelectM2}
       onSelectRooftop={this.onSelectRooftop}

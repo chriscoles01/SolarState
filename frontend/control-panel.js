@@ -2,13 +2,13 @@ import React, {PureComponent} from 'react';
 
 export default class ControlPanel extends PureComponent {
   render() {
-    var {onChangechoice, choice, onSelectM2, onSelectRooftop, zipChange} = this.props;
+    var {onChangeChoice, choice, onSelectM2, onSelectRooftop, zipChange} = this.props;
     this.setState({ choice: choice, checkm2:false, checkroof:false});
 
-    const _onChangechoice = evt => {
+    const _onChangeChoice = evt => {
       const bchoice = evt.target.value;
       // add selected days to start time to calculate new time
-      onChangechoice(bchoice, this.refs["solar"].checked, this.refs["m2"].checked);
+      onChangeChoice(bchoice, this.refs["solar"].checked, this.refs["m2"].checked);
     };
 
     const _onChangeM2 = evt => {
@@ -48,7 +48,7 @@ export default class ControlPanel extends PureComponent {
         <div>
           <label>choice: {choice}</label>
           <br/>
-          <select ref="mySelect" onChange={_onChangechoice} defaultValue={choice}>
+          <select ref="mySelect" onChange={_onChangeChoice} defaultValue={choice}>
         <option>JANUARY</option>
         <option>FEBRUARY</option>
         <option>MARCH</option>
