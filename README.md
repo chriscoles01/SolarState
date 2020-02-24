@@ -1,5 +1,7 @@
 # Solar State
 
+https://chriscoles01.github.io/SolarState/
+
 This project makes use of DeckGL and Mapbox to visualise the solar potential in Kwh per m^2 in the USA, split into zones of approxiamtly 2000KM^2 in size. 
 
 We have combined this with a dataset indicating the amount of suitable rooftop space for solar in m^2 in each zip code to produce an approximation for the Annual Solar potential for each suitable zip code. We used standard calculations taking into account the angle of the roof, and the efficiency of solar panels for our calculations.
